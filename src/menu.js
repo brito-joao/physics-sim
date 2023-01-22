@@ -10,7 +10,7 @@ export function createMenu(){
     //first simulation 
     const simulation1=document.createElement("div");
     simulation1.setAttribute("class","sim sim1");
-    simulation1.innerHTML="<p>Cars Colliding</p><p>click me </p>";
+    simulation1.innerHTML="<p>Conservation of momentum</p><p>click me </p>";
 
     body.appendChild(title);
     body.appendChild(simulation1);
@@ -35,21 +35,28 @@ export function createProject1(){
     let button_reset=document.querySelector(".reset-game");
     let button_stop=document.querySelector(".stop-game");
     let is_clicked=false;
-    let velocity= document.createElement("input");
-    let velocity_display=document.createElement("p");
-    velocity_display.setAttribute("class","vel-d");
-    velocity.setAttribute("type","range");
-    velocity.setAttribute("min","-30");
-    velocity.setAttribute("max","30");
-    velocity.value=1;
-    velocity.setAttribute("class","slider");
-    velocity_display.innerText=`${velocity.value}m/s`;
-    velocity.oninput = function() {
-        velocity_display.innerHTML = `${this.value}m/s`;
-    }
+
+    let sliders=document.createElement("div");
+    sliders.setAttribute("class","sliders");
     
-    body.appendChild(velocity_display);
-    body.appendChild(velocity)
+
+    let velocity1=createAtributeElement("velocity1",1,-20,20);
+    let mass1=createAtributeElement("mass1",1,0,20);
+    let velocity2=createAtributeElement("velocity2",-1,-20,20);
+    let mass2=createAtributeElement("mass2",1,0,20);
+    sliders.appendChild(velocity1);
+    sliders.appendChild(mass1);
+    
+    sliders.appendChild(velocity2);
+    sliders.appendChild(mass2);
+    body.appendChild(sliders);
+
+
+
+    let velocity1Display=document.createElement("p");
+    velocity1Display.innerText=`Velocity after inpact: ${0}`;
+    velocity1Display.setAttribute("class","velocity1display");
+    body.appendChild(velocity1Display);
     button_start.addEventListener("click",()=>{
         is_clicked?{}:startGameLoop();
         is_clicked=true;
@@ -69,4 +76,31 @@ export function createProject1(){
         createMenu();
         
     });
+}
+
+
+
+function createAtributeElement(name,default_value,min_value,max_value){
+    let element=document.createElement("div");
+    element.setAttribute("class",`box`);
+    
+    let display_name=document.createElement("p");
+    display_name.innerText=name;
+    let display=document.createElement("input");
+    let slider=document.createElement("input");
+
+    display.setAttribute("class",`${name}`);
+    slider.setAttribute("type","range");
+    slider.setAttribute("min",`${min_value}`);
+    slider.setAttribute("max",`${max_value}`);
+    slider.value=default_value;
+    slider.setAttribute("class",`${"slider"+name}`);
+    display.value=default_value;
+    slider.oninput = function() {
+        display.value = this.value;
+    }
+    element.appendChild(display_name);
+    element.appendChild(display);
+    element.appendChild(slider);
+    return element;
 }
