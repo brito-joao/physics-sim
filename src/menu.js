@@ -76,6 +76,8 @@ export function createProject1(){
         createMenu();
         
     });
+    let momentum_text=addText(momentum_explanation);
+    body.appendChild(momentum_text)
 }
 
 
@@ -99,8 +101,19 @@ function createAtributeElement(name,default_value,min_value,max_value){
     slider.oninput = function() {
         display.value = this.value;
     }
+    display.oninput = function() {
+        slider.value = this.value;
+    }
     element.appendChild(display_name);
     element.appendChild(display);
     element.appendChild(slider);
+    return element;
+}
+let momentum_explanation="The law of momentum states that the momentum of an object will remain constant unless an external force is applied to it. This means that if an object is moving at a certain velocity and no force is acting upon it, it will continue to move at that velocity. However, if a force is applied, the momentum of the object will change. In terms of physics, momentum is defined as the product of an object's mass and velocity. Therefore, the law of momentum can also be stated as the conservation of momentum, which means that the total momentum of a closed system (one in which no external forces are acting) will remain constant over time. This principle is often used in physics to calculate the movement and behavior of objects in various situations, such as collisions and explosions.";
+function addText(text){
+    let element=document.createElement("div");
+    element.setAttribute("class",`text`);
+
+    element.innerText=text;
     return element;
 }

@@ -1,6 +1,8 @@
 body{
     background-color: white;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .title{
     display: flex;
@@ -18,7 +20,8 @@ body{
 canvas{
     border: solid;
     margin: 2em;
-    min-width: 80vw;
+    width:clamp(10vw,60em,85vw);
+    max-height: 40em;
 }
 .btns{
     display: flex;
@@ -30,8 +33,21 @@ canvas{
 .box{
     display: flex;
     flex-direction: column;
-    max-width: 6em;
+    max-width: 5em;
     text-align: center;
-    border:solid ;
+    border: none;
+    border-bottom:solid ;
+    border-right: solid;
+    margin-right: 0.3em;
     
+}
+.btns{
+    gap:0.5em;
+    *{
+        background-color: white;
+        border:none;
+        border-right: solid;
+        border-bottom: solid;
+
+    }
 }

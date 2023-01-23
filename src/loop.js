@@ -10,13 +10,14 @@ function Block(x,y,width,height,velocity,acceleration,mass){
     this.velocity=velocity;
     this.acceleration=acceleration;
 }
-let block1=new Block(10,10,10,10,2,0,10);
-let block2=new Block(200,10,10,10,0,0,10);
+let block1=new Block(10,10,20,20,2,0,10);
+let block2=new Block(200,10,20,20,0,0,10);
 let has_collided=false;
+
 export function gameLoop1(display1,mass_slider2,mass_slider1,velocity_slider1,velocity_slider2,canvas,ctx){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    
+    ctx.fillRect(2, 100, 1, 1);
+    ctx.fillRect(2, 110, 10, 1);
     
 
     
@@ -45,9 +46,12 @@ export function gameLoop1(display1,mass_slider2,mass_slider1,velocity_slider1,ve
 
         
     }else{
-        has_collided=false;
-        block1.velocity=velocity_slider1.value;
-        block2.velocity=velocity_slider2.value;
+        
+        if(!has_collided) {
+            block1.velocity=velocity_slider1.value;
+            block2.velocity=velocity_slider2.value;
+            has_collided=false;
+        }
     }
 
     
@@ -105,7 +109,7 @@ export function resetLoop(){
     block2.y=10;
 
     velocity_slider1.value=1;
-    velocity_slider2.value=0;
+    velocity_slider2.value=-1;
     mass_slider1.value=1;
     mass_slider2.value=1;
 }
