@@ -25,7 +25,7 @@ export function createMenu(){
 export function createProject1(){
     const body=document.querySelector("body");
     body.innerHTML="";
-    body.innerHTML="<div class='btns'><button class='go-back'>Go Back to menu</button><button class='start-game'>Start Simulation</button><button class='stop-game'>Stop Simulation</button><button class='reset-game'>Reset Simulation</button></div>";
+    body.innerHTML="<div class='btns'><button class='go-back'>Go Back to menu</button><button class='start-game'>Start Simulation</button><button class='stop-game'>Stop Simulation</button><button class='reset-game'>Reset Simulation</button><button class='switchmode'>Elastic/Inelastic</button></div>";
 
     const canvas=document.createElement("canvas");
     canvas.setAttribute("class","cvs");
@@ -34,6 +34,7 @@ export function createProject1(){
     let button_start=document.querySelector(".start-game");
     let button_reset=document.querySelector(".reset-game");
     let button_stop=document.querySelector(".stop-game");
+    
     let is_clicked=false;
 
     let sliders=document.createElement("div");
@@ -76,6 +77,7 @@ export function createProject1(){
         createMenu();
         
     });
+    
     let momentum_text=addText(momentum_explanation);
     body.appendChild(momentum_text)
 }

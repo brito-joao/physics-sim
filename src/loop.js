@@ -13,7 +13,7 @@ function Block(x,y,width,height,velocity,acceleration,mass){
 let block1=new Block(10,10,20,20,2,0,10);
 let block2=new Block(200,10,20,20,0,0,10);
 let has_collided=false;
-
+let is_elastic=true;
 export function gameLoop1(display1,mass_slider2,mass_slider1,velocity_slider1,velocity_slider2,canvas,ctx){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillRect(2, 100, 1, 1);
@@ -32,9 +32,15 @@ export function gameLoop1(display1,mass_slider2,mass_slider1,velocity_slider1,ve
         let final_velocity_block1 = (block1.velocity * (block1.mass - block2.mass) + 2 * block2.mass * block2.velocity) / (block1.mass + block2.mass);
         let final_velocity_block2 = (block2.velocity * (block2.mass - block1.mass) + 2 * block1.mass * block1.velocity) / (block1.mass + block2.mass);
         //2 vars up above made with chat
+        if(is_elastic){
+            block1.velocity=final_velocity_block1;
+            block2.velocity=final_velocity_block2;
+        }else{
+            let inelastic_velocity=(block1.mass*block1.velocity+block2.mass*block2.velocity)/(block1.mass+block2.mass);
+            block1.velocity=inelastic_velocity;
+            block2.velocity=inelastic_velocity;
+        }
         
-        block1.velocity=final_velocity_block1;
-        block2.velocity=final_velocity_block2;
         
         
         //change the display 
@@ -83,7 +89,11 @@ export function startGameLoop(){
     const mass_slider1=document.querySelector(".slidermass1");
     const mass_slider2=document.querySelector(".slidermass2");
     const display1=document.querySelector(".velocity1display");
-    
+    let button_switch=document.querySelector(".switchmode");
+    button_switch.addEventListener("click",()=>{
+        console.log("switching");
+        !is_elastic?is_elastic=true:is_elastic=false;
+    })
     gameLoopInterval= setInterval(()=>gameLoop1(display1,mass_slider2,mass_slider1,velocity_slider1,velocity_slider2,canvas,ctx),20)
     console.log("loop-start");
 }
