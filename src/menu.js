@@ -42,9 +42,9 @@ export function createProject1(){
     
 
     let velocity1=createAtributeElement("velocity1",1,-20,20);
-    let mass1=createAtributeElement("mass1",1,0,20);
+    let mass1=createAtributeElement("mass1",1,1,20);
     let velocity2=createAtributeElement("velocity2",-1,-20,20);
-    let mass2=createAtributeElement("mass2",1,0,20);
+    let mass2=createAtributeElement("mass2",1,1,20);
     sliders.appendChild(velocity1);
     sliders.appendChild(mass1);
     
@@ -94,12 +94,23 @@ function createAtributeElement(name,default_value,min_value,max_value){
     let slider=document.createElement("input");
 
     display.setAttribute("class",`${name}`);
+    display.setAttribute("type","number");
+    display.setAttribute("max",`${max_value}`);
+    display.setAttribute("min",`${min_value}`);
     slider.setAttribute("type","range");
     slider.setAttribute("min",`${min_value}`);
     slider.setAttribute("max",`${max_value}`);
     slider.value=default_value;
     slider.setAttribute("class",`${"slider"+name}`);
     display.value=default_value;
+
+    display.addEventListener("input",()=>{
+        display.value>=max_value+1?display.value=max_value
+        :display.value<=min_value-2?display.value=min_value
+        :{};
+    })
+    
+
     slider.oninput = function() {
         display.value = this.value;
     }
